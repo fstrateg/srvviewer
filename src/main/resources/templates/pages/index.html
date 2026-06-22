@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<body>
+    <div layout:fragment="content">
+        <th:block th:if="${#lists.isEmpty(servers)}">
+            <p>Записей не найдено</p>
+        </th:block>
+
+        <th:block th:unless="${#lists.isEmpty(servers)}">
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>Описание</th>
+                        <th>IP</th>
+                        <th>Порт</th>
+                        <th>SID</th>
+                        <th>Схема</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="server : ${servers}">
+                        <td th:text="${server.dsc}"></td>
+                        <td th:text="${server.ip}"></td>
+                        <td th:text="${server.port}"></td>
+                        <td th:text="${server.sid}"></td>
+                        <td th:text="${server.sch}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </th:block>
+    </div>
+</body>
+</html>

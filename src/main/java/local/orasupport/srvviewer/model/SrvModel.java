@@ -5,12 +5,13 @@ import jakarta.persistence.*;
 
 @Data
 @Entity
-@Table(name="v_all_trg")
+@Table(name="v_all_srv_torg")
 public class SrvModel {
-    public String ip;
-    public String port;
+    private String ip;
+    private String port;
+    private String sid;
+    private String sch;
+    private String dsc;
     @Id
-    public String sid;
-    public String sch;
-    public String des;
+    private String cfg;
 }
