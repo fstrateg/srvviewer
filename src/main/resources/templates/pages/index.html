@@ -13,19 +13,15 @@
                 <thead>
                     <tr>
                         <th>Описание</th>
-                        <th>IP</th>
-                        <th>Порт</th>
-                        <th>SID</th>
-                        <th>Схема</th>
+                        <th>TNS</th>
+                        <th>Группа</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="server : ${servers}">
-                        <td th:text="${server.dsc}"></td>
-                        <td th:text="${server.ip}"></td>
-                        <td th:text="${server.port}"></td>
-                        <td th:text="${server.sid}"></td>
-                        <td th:text="${server.sch}"></td>
+                        <td th:text="${server.name}"></td>
+                        <td th:text="${server.url}"></td>
+                        <td th:text="${server.group.name}"></td>
                     </tr>
                 </tbody>
             </table>

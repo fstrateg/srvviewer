@@ -5,13 +5,15 @@ import jakarta.persistence.*;
 
 @Data
 @Entity
-@Table(name="v_all_srv_torg")
+@Table(name="web_servers")
 public class SrvModel {
-    private String ip;
-    private String port;
-    private String sid;
-    private String sch;
-    private String dsc;
     @Id
-    private String cfg;
+    private Long id;
+    private String name;
+    private String url;
+    private String notes;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id")
+    private SrvGroupModel group;
 }

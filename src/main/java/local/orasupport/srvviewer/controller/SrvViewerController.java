@@ -1,5 +1,6 @@
 package local.orasupport.srvviewer.controller;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,9 @@ public class SrvViewerController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("name", "Developer");
-        model.addAttribute("servers", repository.findAll());
+        Sort sort = Sort.by(Sort.Direction.ASC, "group.name")
+        .and(Sort.by(Sort.Direction.ASC, "name"));
+        model.addAttribute("servers", repository.findAll( sort ));
         return "pages/index";
     }
     
