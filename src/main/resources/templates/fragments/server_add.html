@@ -1,0 +1,73 @@
+<th:block th:fragment="server_add">
+    <!-- Модалка: добавление сервера -->
+    <div class="modal fade" id="addModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">➕ Добавить сервер</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="post" th:action="@{/server/add}">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label class="form-label">URL</label>
+                            <select class="form-control" name="url" id="addUrl" required>
+                                <option value="">— загрузка... —</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Описание</label>
+                            <input type="text" class="form-control" name="name" id="addName" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Группа</label>
+                            <select class="form-control" name="groupId" id="addGroupId">
+                                <option value="-1">— Не определено —</option>
+                                <option th:each="group : ${groups}"
+                                        th:value="${group.id}"
+                                        th:text="${group.name}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Заметки</label>
+                            <textarea class="form-control" name="notes" id="addNotes" rows="4"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn-anprg-save">💾 Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addModal').addEventListener('show.bs.modal', function () {
+            const select = document.getElementById('addUrl');
+            select.innerHTML = '<option value="">— загрузка... —</option>';
+
+            fetch('/server/listurl')
+                .then(r => r.json())
+                .then(urls => {
+                    if (urls.length === 0) {
+                        select.innerHTML = '<option value="">— нет доступных серверов —</option>';
+                        return;
+                    }
+                    select.innerHTML = urls
+                        .map(url => `<option value="${url}">${url}</option>`)
+                        .join('');
+                })
+                .catch(() => {
+                    select.innerHTML = '<option value="">— ошибка загрузки —</option>';
+                });
+        });
+    </script>
+
+</th:block>

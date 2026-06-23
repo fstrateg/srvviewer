@@ -1,11 +1,11 @@
 package local.orasupport.srvviewer.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import local.orasupport.srvviewer.model.SrvGroupModel;
 import local.orasupport.srvviewer.model.SrvModel;
@@ -48,6 +48,34 @@ public class SrvViewerController {
         repository.save(server);
         return "redirect:/";
     }
+
+    @PostMapping("/server/add")
+    public String add(@RequestParam String url,
+                    @RequestParam String name,
+                    @RequestParam Long groupId,
+                    @RequestParam(required = false) String notes) {
+        SrvModel server = new SrvModel();
+        server.setUrl(url);
+        server.setName(name);
+        server.setNotes(notes);
+        if (groupId != -1) {
+            SrvGroupModel group = groupRepository.findById(groupId).orElseThrow();
+            server.setGroup(group);
+        }
+        repository.save(server);
+        return "redirect:/";
+    }
+
+    @PostMapping("/server/delete")
+    public String delete(@RequestParam Long id) {
+        repository.deleteById(id);
+        return "redirect:/";
+    }
     
+    @GetMapping("/server/listurl")
+    @ResponseBody
+    public List<String> listAvailableUrls() {
+        return repository.findAvailableUrls();
+    }
     
 }

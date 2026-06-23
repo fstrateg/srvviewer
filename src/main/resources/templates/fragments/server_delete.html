@@ -1,0 +1,36 @@
+<th:block th:fragment="server_delete">
+
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">🗑️ Удаление сервера</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="post" th:action="@{/server/delete}">
+                    <div class="modal-body text-center py-4">
+                        <input type="hidden" name="id" id="deleteId">
+                        <p class="mb-1" style="color: var(--text-faint); font-size: 0.85rem;">Вы собираетесь удалить сервер</p>
+                        <p id="deleteName" style="color: var(--accent); font-size: 1.1rem; font-weight: 500;"></p>
+                        <p id="deleteUrl" style="color: var(--text-faint); font-size: 0.85rem;"></p>
+                        <p class="mt-3 mb-0" style="color: var(--text-muted);">Это действие необратимо. Продолжить?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-anprg-delete">🗑️ Удалить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('deleteModal').addEventListener('show.bs.modal', function (e) {
+            const btn = e.relatedTarget;
+            document.getElementById('deleteId').value      = btn.getAttribute('data-id');
+            document.getElementById('deleteName').textContent = btn.getAttribute('data-name');
+            document.getElementById('deleteUrl').textContent  = btn.getAttribute('data-url');
+        });
+    </script>
+
+</th:block>

@@ -103,7 +103,7 @@ body {
    BUTTONS
    ============================================= */
 .btn-anprg-accent,
-.btn-anprg-support {
+.btn-anprg-support{
     width: 30px;
     height: 30px;
     padding: 0;
@@ -160,6 +160,21 @@ body {
 .btn-anprg-save:hover {
     opacity: 0.85;
     color: var(--text);
+}
+
+/* Кнопка удаления */
+.btn-anprg-delete {
+    background: linear-gradient(135deg, #842029, #521015);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 0.4rem 1.2rem;
+    transition: opacity 0.15s;
+}
+
+.btn-anprg-delete:hover {
+    opacity: 0.85;
+    color: var(--text);
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
 /* =============================================
@@ -248,4 +263,11 @@ textarea.form-control {
     text-align: center;
     padding: 3rem 1rem;
     color: var(--text-faint);
+}
+
+.form-control[readonly] {
+    background-color: var(--bg-elevated) !important;
+    color: var(--text-faint);
+    border-color: var(--border);
+    cursor: default;
 }

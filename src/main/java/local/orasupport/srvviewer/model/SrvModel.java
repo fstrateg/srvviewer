@@ -7,7 +7,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="web_servers")
 public class SrvModel {
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String url;

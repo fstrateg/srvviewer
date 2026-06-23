@@ -4,7 +4,12 @@
       layout:decorate="~{layout/main}">
 <body>
 <div layout:fragment="content">
-
+    <div class="mb-3 text-end">
+        <button type="button" class="btn-anprg-save"
+                data-bs-toggle="modal" data-bs-target="#addModal">
+            ➕ Добавить сервер
+        </button>
+    </div>
     <th:block th:if="${#lists.isEmpty(servers)}">
         <div class="empty-state">
             <p>Записей не найдено</p>
@@ -50,6 +55,15 @@
                                          ">
                             ✏️
                         </button>
+                        <button type="button"
+                                class="btn-anprg-accent"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal"
+                                th:attr="data-id=${server.id},
+                                        data-name=${server.name},
+                                        data-url=${server.url}">
+                            🗑️
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -72,6 +86,8 @@
     </div>
 
     <div th:replace="~{fragments/server_edit :: server_edit}"></div>
+    <div th:replace="~{fragments/server_add :: server_add}"></div>
+    <div th:replace="~{fragments/server_delete :: server_delete}"></div>
 </div>
 
 <th:block layout:fragment="scripts">
