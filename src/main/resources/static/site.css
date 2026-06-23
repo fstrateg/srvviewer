@@ -1,3 +1,251 @@
-body{
-    background-color: #101015;
+/* =============================================
+   ANPRG Support — Design System
+   Палитра: Технологичный (циан + изумруд)
+   ============================================= */
+
+:root {
+    --bg:          #212529;   /* основной фон */
+    --bg-surface:  #2c3338;   /* поверхности, карточки */
+    --bg-elevated: #343a40;   /* hover, чуть светлее */
+    --bg-input:    #1a1e22;   /* поля ввода */
+
+    --accent:      #0dcaf0;   /* циан — главный акцент */
+    --accent-dark: #0aafcf;   /* циан потемнее */
+    --accent-dim:  #035f6e;   /* циан приглушённый (бейджи, фоны) */
+
+    --support:     #20c997;   /* изумруд — вспомогательный */
+    --support-dark:#158f6a;   /* изумруд потемнее */
+    --support-dim: #09573f;   /* изумруд приглушённый */
+
+    --text:        #f8f9fa;   /* основной текст */
+    --text-muted:  #adb5bd;   /* второстепенный текст */
+    --text-faint:  #6c757d;   /* подсказки, метки */
+
+    --border:      #343a40;   /* обычная граница */
+    --border-accent: rgba(13, 202, 240, 0.3); /* акцентная граница */
+}
+
+/* =============================================
+   BASE
+   ============================================= */
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* =============================================
+   NAVBAR
+   ============================================= */
+
+.navbar {
+    background-color: var(--bg-input) !important;
+    border-bottom: 1px solid var(--border-accent);
+}
+
+.navbar-brand {
+    color: var(--accent) !important;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.navbar-brand:hover {
+    color: var(--accent-dark) !important;
+}
+
+.nav-link {
+    color: var(--text-muted) !important;
+    transition: color 0.15s;
+}
+
+.nav-link:hover {
+    color: var(--accent) !important;
+}
+
+/* =============================================
+   TABLE
+   ============================================= */
+
+.table {
+    --bs-table-bg: var(--bg-surface);
+    --bs-table-color: var(--text);
+    --bs-table-border-color: var(--border);
+    --bs-table-hover-bg: var(--bg-elevated);
+    --bs-table-hover-color: var(--text);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: var(--bg-input);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-accent);
+    padding: 0.75rem 1rem;
+}
+
+.table tbody td {
+    color: var(--text-muted);
+    border-color: var(--border);
+    padding: 0.65rem 1rem;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover td {
+    color: var(--text);
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.btn-anprg-accent,
+.btn-anprg-support {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Акцентная кнопка (редактирование) */
+.btn-anprg-accent {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    padding: 0.25rem 0.6rem;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn-anprg-accent:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--text);
+}
+
+/* Поддерживающая кнопка (заметки) */
+.btn-anprg-support {
+    background: transparent;
+    color: var(--support);
+    border: 1px solid var(--support-dim);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    padding: 0.25rem 0.6rem;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn-anprg-support:hover {
+    background: var(--support-dim);
+    border-color: var(--support);
+    color: var(--text);
+}
+
+/* Кнопка сохранения */
+.btn-anprg-save {
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent-dim));
+    color: var(--text);
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    padding: 0.4rem 1.2rem;
+    transition: opacity 0.15s;
+}
+
+.btn-anprg-save:hover {
+    opacity: 0.85;
+    color: var(--text);
+}
+
+/* =============================================
+   MODALS
+   ============================================= */
+
+.modal-content {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-accent);
+    border-radius: 10px;
+    color: var(--text);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+}
+
+.modal-title {
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border);
+}
+
+/* =============================================
+   FORMS
+   ============================================= */
+
+.form-label {
+    color: var(--text-faint);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+}
+
+.form-control {
+    background-color: var(--bg-input);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-control:focus {
+    background-color: var(--bg-input);
+    color: var(--text);
+    border-color: var(--accent-dark);
+    box-shadow: 0 0 0 2px var(--accent-dim);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+
+.footer {
+    background-color: var(--bg-input) !important;
+    border-top: 1px solid var(--border);
+    color: var(--text-faint);
+    font-size: 0.8rem;
+}
+
+/* =============================================
+   UTILS
+   ============================================= */
+
+/* Текст с переносами (для заметок) */
+.text-pre-wrap {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+/* Пустое состояние */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-faint);
 }

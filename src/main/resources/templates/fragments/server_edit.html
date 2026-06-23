@@ -1,0 +1,56 @@
+<th:block th:fragment="server_edit">
+
+    <!-- Модалка: редактирование -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">✏️ Редактирование</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="post" th:action="@{/server/save}">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="editId">
+                        <div class="mb-3">
+                            <label class="form-label">Описание</label>
+                            <input type="text" class="form-control" name="name" id="editName">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">TNS</label>
+                            <input type="text" class="form-control" name="url" id="editUrl">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Группа</label>
+                            <select class="form-control" name="groupId" id="editGroupId">
+                                <option th:each="group : ${groups}"
+                                        th:value="${group.id}"
+                                        th:text="${group.name}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Заметки</label>
+                            <textarea class="form-control" name="notes" id="editNotes" rows="6"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn-anprg-save">💾 Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('editModal').addEventListener('show.bs.modal', function (e) {
+            const btn = e.relatedTarget;
+            document.getElementById('editId').value       = btn.getAttribute('data-id');
+            document.getElementById('editName').value     = btn.getAttribute('data-name');
+            document.getElementById('editUrl').value      = btn.getAttribute('data-url');
+            document.getElementById('editNotes').value    = btn.getAttribute('data-notes') || '';
+            document.getElementById('editGroupId').value  = btn.getAttribute('data-group-id');
+        });
+    </script>
+
+</th:block>

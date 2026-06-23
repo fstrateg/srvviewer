@@ -3,29 +3,86 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/main}">
 <body>
-    <div layout:fragment="content">
-        <th:block th:if="${#lists.isEmpty(servers)}">
-            <p>Записей не найдено</p>
-        </th:block>
+<div layout:fragment="content">
 
-        <th:block th:unless="${#lists.isEmpty(servers)}">
-            <table class="table table-dark table-hover">
-                <thead>
-                    <tr>
-                        <th>Описание</th>
-                        <th>TNS</th>
-                        <th>Группа</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="server : ${servers}">
-                        <td th:text="${server.name}"></td>
-                        <td th:text="${server.url}"></td>
-                        <td th:text="${server.group.name}"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </th:block>
+    <th:block th:if="${#lists.isEmpty(servers)}">
+        <div class="empty-state">
+            <p>Записей не найдено</p>
+        </div>
+    </th:block>
+
+    <th:block th:unless="${#lists.isEmpty(servers)}">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Описание</th>
+                    <th>TNS</th>
+                    <th>Группа</th>
+                    <th>Заметки</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="server : ${servers}">
+                    <td th:text="${server.name}"></td>
+                    <td th:text="${server.url}"></td>
+                    <td th:text="${server.group.name}"></td>
+                    <td>
+                        <button th:if="${server.notes != null and !server.notes.isEmpty()}"
+                                type="button"
+                                class="btn-anprg-support"
+                                data-bs-toggle="modal"
+                                data-bs-target="#notesModal"
+                                th:attr="data-notes=${server.notes},data-name=${server.name}">
+                            📋
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button"
+                                class="btn-anprg-accent"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal"
+                                th:attr="data-id=${server.id},
+                                         data-name=${server.name},
+                                         data-url=${server.url},
+                                         data-group-id=${server.group.id},
+                                         data-notes=${server.notes}
+                                         ">
+                            ✏️
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </th:block>
+
+    <!-- Модалка: просмотр заметок -->
+    <div class="modal fade" id="notesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">📋 Заметки — <span id="notesModalName"></span></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="notesModalBody" class="text-pre-wrap"></p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div th:replace="~{fragments/server_edit :: server_edit}"></div>
+</div>
+
+<th:block layout:fragment="scripts">
+<script>
+    document.getElementById('notesModal').addEventListener('show.bs.modal', function (e) {
+        const btn = e.relatedTarget;
+        document.getElementById('notesModalName').textContent = btn.getAttribute('data-name');
+        document.getElementById('notesModalBody').textContent = btn.getAttribute('data-notes');
+    });
+</script>
+</th:block>
+
 </body>
 </html>
